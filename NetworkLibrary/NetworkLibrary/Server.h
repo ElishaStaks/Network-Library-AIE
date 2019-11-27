@@ -8,6 +8,8 @@
 #include <map>
 #include "GameObject.h"
 #include <iostream>
+#include <thread>
+#include <atomic>
 
 class Server
 {
@@ -16,7 +18,8 @@ public:
 	virtual ~Server();
 
 	virtual void StartUp();
-	virtual void ShutDown() = 0;
+	virtual void ShutDown();
+	virtual void Run();
 	void HandleNetworkMessages();
 	void SendNewClientID(RakNet::SystemAddress & address);
 
@@ -25,4 +28,7 @@ public:
 	RakNet::RakPeerInterface* pPeerInterface = nullptr;
 	// Client unique ID when it first connects to the server.
 	int nextClientID = 1;
+
+	std::thread m_packetThread;
+	std::atomic_bool m_shouldRun;
 };

@@ -3,6 +3,7 @@
 
 Server::Server()
 {
+	m_shouldRun.store(true);
 }
 
 
@@ -26,7 +27,21 @@ void Server::StartUp()
 	//Now call startup - max of 32 connections, on the assigned port
 	pPeerInterface->Startup(32, &sd, 1);
 	pPeerInterface->SetMaximumIncomingConnections(32);
-	HandleNetworkMessages();
+	// HandleNetworkMessages();
+
+	m_packetThread = std::thread(&Server::HandleNetworkMessages);
+}
+
+void Server::ShutDown()
+{
+	m_shouldRun.store(false);
+	m_packetThread.join();
+}
+
+void Server::Run()
+{
+	std::cin.get();
+	ShutDown();
 }
 
 // @brief Checks to see which case is true in the switch statment and sends to the console the correct 
@@ -35,7 +50,7 @@ void Server::HandleNetworkMessages()
 {
 	// Chunk of data that will be sent over the network.
 	RakNet::Packet* packet = nullptr;
-	while (true) {
+	while (m_shouldRun.load()) {
 		// Recieves packet of data.
 		for (packet = pPeerInterface->Receive(); packet;
 			pPeerInterface->DeallocatePacket(packet),
