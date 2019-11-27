@@ -11,7 +11,7 @@ Server::~Server()
 {
 }
 
-void Server::StartUp()
+bool Server::StartUp()
 {
 	//Startup the server, and start it listening to clients
 	std::cout << "Starting up the server..." << std::endl;
@@ -30,12 +30,15 @@ void Server::StartUp()
 	// HandleNetworkMessages();
 
 	m_packetThread = std::thread(&Server::HandleNetworkMessages, this);
+
+	return true;
 }
 
-void Server::ShutDown()
+bool Server::ShutDown()
 {
 	m_shouldRun.store(false);
 	m_packetThread.join();
+	return true;
 }
 
 void Server::Run()

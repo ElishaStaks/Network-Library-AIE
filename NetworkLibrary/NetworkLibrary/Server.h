@@ -17,8 +17,8 @@ public:
 	Server();
 	virtual ~Server();
 
-	virtual void StartUp();
-	virtual void ShutDown();
+	virtual bool StartUp();
+	virtual bool ShutDown();
 	virtual void Run();
 	void HandleNetworkMessages();
 	void SendNewClientID(RakNet::SystemAddress & address);

@@ -49,7 +49,32 @@ bool Client::Startup() {
 		std::cout << "Unable to start connection, Error number: " << res << std::endl;
 	}
 
+	// begin packet handling thread
+	m_packetHandler = std::thread(&Client::HandleNetworkMessages, this);
+
 	return true;
+}
+
+bool Client::shutdown()
+{
+	// tell packetHandler to stop
+	m_shouldRun.store(false);
+
+	// join threads
+	m_packetHandler.join();
+
+	// destroy instance of m_peerInterface
+	RakNet::RakPeerInterface::DestroyInstance(m_pPeerInterface);
+	return true;
+}
+
+void Client::Run()
+{
+	while (m_shouldRun) {
+		std::cin.get();
+		m_shouldRun.store(false);
+	}
+	shutdown();
 }
 
 // @brief takes care of all network messages and returns void

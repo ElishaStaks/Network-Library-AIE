@@ -9,6 +9,8 @@
 #include <RakPeerInterface.h>
 #include <unordered_map>
 #include "GameObject.h"
+#include <atomic>
+#include <thread>
 
 class Client {
 public:
@@ -17,8 +19,8 @@ public:
 	virtual ~Client();
 
 	virtual bool Startup();
-	virtual void shutdown() = 0;
-
+	virtual bool shutdown();
+	virtual void Run();
 	virtual void update(float deltaTime) = 0;
 	virtual void draw() = 0;
 
@@ -43,4 +45,6 @@ protected:
 	const char*                              IP = "127.0.0.1";            // @brief IP address.
 	GameObject                               m_myGameObject;              // @brief holds new client ID.
     std::unordered_map<int, GameObject*>     m_otherClientGameObjects;    // @brief holds the GameObject data for all the other clients.
+	std::thread m_packetHandler;
+	std::atomic<bool> m_shouldRun;
 };
