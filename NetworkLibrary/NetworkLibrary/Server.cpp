@@ -29,7 +29,7 @@ void Server::StartUp()
 	pPeerInterface->SetMaximumIncomingConnections(32);
 	// HandleNetworkMessages();
 
-	m_packetThread = std::thread(&Server::HandleNetworkMessages);
+	m_packetThread = std::thread(&Server::HandleNetworkMessages, this);
 }
 
 void Server::ShutDown()
