@@ -1,3 +1,4 @@
 ﻿  Client.cpp
+  GameObject.cpp
   Server.cpp
   NetworkLibrary.vcxproj -> C:\Users\s181333\Desktop\NetworkLibrary\NetworkLibrary\Release\NetworkLibrary.lib
