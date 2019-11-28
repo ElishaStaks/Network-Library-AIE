@@ -21,18 +21,18 @@ class GameObject
 public:
 	GameObject();
 
-	void Write(RakNet::RakPeerInterface* pPeerInterface, const RakNet::SystemAddress& address, bool broadcast);
-	void Read(RakNet::Packet* packet);
+	virtual void Write(RakNet::RakPeerInterface* pPeerInterface, const RakNet::SystemAddress& address, bool broadcast);
+	virtual void Read(RakNet::Packet* packet);
 	static GameObject* CreateGameObject();
 
-	glm::vec2 SetLocalPos(glm::vec2 pos);
-	glm::vec2 GetLocalPos();
+	virtual glm::vec2 SetLocalPos(glm::vec2 pos);
+	virtual glm::vec2 GetLocalPos();
 	static glm::vec4 GetColour(int id);
 
 	int SetID(int id);
 	int& GetID();
 
-	GameObjectData& GetData();
+	virtual GameObjectData& GetData();
 
 	friend std::ostream& operator<<(std::ostream& stream, const GameObject& go);
 

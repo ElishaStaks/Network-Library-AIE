@@ -20,8 +20,8 @@ public:
 	virtual bool StartUp();
 	virtual bool ShutDown();
 	virtual void Run();
-	void HandleNetworkMessages();
-	void SendNewClientID(RakNet::SystemAddress & address);
+	virtual void HandleNetworkMessages();
+	virtual void SendNewClientID(RakNet::SystemAddress & address);
 
 	std::map<int, GameObject> m_gameObjects;
 	// peer to peer interface.  
