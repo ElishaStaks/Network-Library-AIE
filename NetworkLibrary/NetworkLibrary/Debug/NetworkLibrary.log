@@ -1,5 +1,4 @@
 ﻿  Client.cpp
-  GameMessages.cpp
   GameObject.cpp
   Server.cpp
   Generating Code...

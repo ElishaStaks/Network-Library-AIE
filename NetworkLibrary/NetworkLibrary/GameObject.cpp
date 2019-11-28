@@ -70,7 +70,7 @@ int& GameObject::GetID()
 	return id;
 }
 
-GameObjectData& GameObject::GetData()
+GameObject::GameObjectData& GameObject::GetData()
 {
 	return data;
 }

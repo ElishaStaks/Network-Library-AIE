@@ -7,17 +7,21 @@
 #include <glm.hpp>
 #include "GameMessages.h"
 
+
+class GameObject
+{
+
+public:
+
 // Struct that holds the clients position in the world and their colour.
 // Each client will have an instance of the GameObject class that is controlled by that client. When the
 // client moves or changes the GameObject, the client will send information about the GameObject to
 // the server to be sent to all the other connected clients.
-struct GameObjectData {
-	glm::vec2 position;
-	glm::vec4 colour;
-};
+	struct GameObjectData {
+		glm::vec2 position;
+		glm::vec4 colour;
+	};
 
-class GameObject
-{
 public:
 	GameObject();
 
