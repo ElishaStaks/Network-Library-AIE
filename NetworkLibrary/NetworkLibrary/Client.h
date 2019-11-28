@@ -37,6 +37,9 @@ public:
 	// Otherwise, we can read in the GameObject data from the packet, and do something with it
 	virtual void OnRecievedClientPacketData(RakNet::Packet* packetData);
 
+	virtual std::unordered_map<int, GameObject*> GetOtherGameObjects() { return m_otherClientGameObjects; }
+	virtual GameObject GetGameObject() { return m_myGameObject; }
+
 protected:
 
 	glm::mat4	                             m_viewMatrix;
